@@ -1,5 +1,7 @@
 export interface Translation {
   app: string;
+  search: string;
+  clearFilters: string;
   planets: Planets;
   users: Users;
   exchangeRate: string;
@@ -11,6 +13,8 @@ export interface Translation {
 export interface Planets {
   title: string;
   nav: string;
+  noResults: string;
+  resultAmount: string;
   table: Table;
 }
 

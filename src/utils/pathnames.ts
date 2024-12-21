@@ -9,3 +9,13 @@ export const getCurrentLocation = (pathname: string, lang: string) => {
   const urlEnd = pathname.split(`/${lang}`);
   return urlEnd.find((url) => url !== "") || "";
 };
+
+/**
+ * Gets the current query parameters from the URL.
+ *
+ * @param {URLSearchParams} searchParams - The URL search parameters.
+ * @returns {Record<string, string>} - The current query parameters.
+ */
+export const currentQueryParams = (searchParams: URLSearchParams) => {
+  return Object.fromEntries(searchParams.entries());
+};

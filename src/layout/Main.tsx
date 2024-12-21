@@ -85,8 +85,8 @@ const MainLayout = () => {
           </ActionIcon>
         </Group>
       </AppShell.Header>
-      <AppShell.Navbar>
-        <AppShell.Section grow my="md">
+      <AppShell.Navbar withBorder={false}>
+        <AppShell.Section grow my="md" px="xs">
           <NavLink
             component={RouterNavLink}
             to="planets"

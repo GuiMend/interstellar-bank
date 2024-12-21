@@ -1,8 +1,12 @@
 {
   "app": "Interstellar Bank",
+  "search": "Search",
+  "clearFilters": "Clear filters",
   "planets": {
     "title": "Planets",
     "nav": "Planets",
+    "noResults": "No planets found",
+    "resultAmount": "planet(s) found",
     "table": {
       "name": "Name",
       "residents": "Residents",

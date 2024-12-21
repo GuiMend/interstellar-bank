@@ -1,0 +1,16 @@
+repos:
+  # Pre-commit hooks (general utilities like fixing whitespace, end of file)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0 # Latest version
+    hooks:
+      - id: trailing-whitespace # Removes trailing whitespace
+      - id: end-of-file-fixer # Ensures files end with a newline
+      - id: check-merge-conflict # Ensures no merge conflict markers remain
+      - id: check-yaml # Validates YAML syntax
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.17.0 # Use the latest stable version
+    hooks:
+      - id: eslint
+        args: [--fix]
+        types: [javascript, jsx]
