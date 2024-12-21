@@ -174,7 +174,7 @@ export function makeServer({ environment = 'development' } = {}) {
       // Fetch transactions by a list of user IDs
       this.get('/transactions/users/:ids', (schema: any, request) => {
         const userIds = JSON.parse(request.params.ids);
-        
+
         // Retrieve transactions for the specified user IDs
         const transactions = schema.transactions.where((transaction: Transaction) => userIds.includes(transaction.user)).models;
 
@@ -242,3 +242,5 @@ export function makeServer({ environment = 'development' } = {}) {
 
   return server;
 }
+
+export type { ExchangeRate, Planet, User, Transaction };

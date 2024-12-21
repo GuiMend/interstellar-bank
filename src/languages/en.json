@@ -1,0 +1,22 @@
+{
+  "app": "Interstellar Bank",
+  "planets": {
+    "title": "Planets",
+    "nav": "Planets",
+    "table": {
+      "name": "Name",
+      "residents": "Residents",
+      "population": "Population",
+      "climate": "Climate",
+      "terrain": "Terrain"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "nav": "Users"
+  },
+  "exchangeRate": "Exchange Rate",
+  "opening": "Opening",
+  "min": "Min",
+  "max": "Max"
+}
