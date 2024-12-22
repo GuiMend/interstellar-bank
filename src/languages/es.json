@@ -1,0 +1,86 @@
+{
+  "app": "Banco de Coruscant",
+  "search": "Buscar",
+  "clearFilters": "Limpiar filtros",
+  "status": {
+    "completed": "Completado",
+    "inProgress": "En progreso",
+    "blocked": "Bloqueado"
+  },
+  "planets": {
+    "title": "Planetas",
+    "nav": "Planetas",
+    "noResults": "No se encontraron planetas",
+    "resultAmount": "planeta(s) encontrado(s)",
+    "totalResidents": "Total de residentes",
+    "selectClimate": "Seleccionar clima",
+    "selectTerrain": "Seleccionar terreno",
+    "table": {
+      "name": "Nombre",
+      "residents": "Residentes",
+      "population": "Población",
+      "climate": "Clima",
+      "terrain": "Terreno",
+      "gravity": "Gravedad",
+      "diameter": "Diámetro",
+      "rotationPeriod": "Período de rotación",
+      "orbitalPeriod": "Período orbital",
+      "surfaceWater": "Agua superficial",
+      "films": "Películas"
+    }
+  },
+  "transactions": {
+    "title": "Transacciones",
+    "nav": "Planetas",
+    "blockInProgress": "Bloqueo en progreso",
+    "noResults": "No se encontraron transacciones",
+    "resultAmount": "transacción(es) encontrada(s)",
+    "selectCurrency": "Seleccionar moneda",
+    "selectStatus": "Seleccionar estado",
+    "totalTransactions": "Total de transacciones",
+    "blockInProgressTooltip": "No hay transacciones en progreso",
+    "alerts": {
+      "updateSuccess": "Transacción completada con éxito"
+    },
+    "table": {
+      "id": "ID",
+      "from": "De",
+      "amount": "Cantidad",
+      "currency": "Moneda",
+      "conversion": "Conversión",
+      "date": "Fecha",
+      "status": "Estado"
+    }
+  },
+  "users": {
+    "title": "Usuarios",
+    "nav": "Usuarios",
+    "noResults": "No se encontraron usuarios",
+    "resultAmount": "usuario(s) encontrado(s)",
+    "table": {
+      "name": "Nombre",
+      "gender": "Género",
+      "birthYear": "Año de nacimiento",
+      "homeworld": "Planeta natal",
+      "height": "Altura",
+      "mass": "Masa",
+      "hairColor": "Color de cabello",
+      "skinColor": "Color de piel",
+      "eyeColor": "Color de ojos"
+    }
+  },
+  "exchangeRate": "Tasa de cambio",
+  "opening": "Apertura",
+  "min": "Mínimo",
+  "max": "Máximo",
+  "welcome": "Bienvenido al Banco de Coruscant",
+  "welcomeMessage": "Por favor, selecciona una página en la barra de navegación.",
+  "backToHome": "Volver a la página principal",
+  "notFound": "Página No Encontrada - 404",
+  "notFoundMessage": "La página que estás buscando no existe.",
+  "notFoundCTA": "Por favor, regresa a la página principal.",
+  "attention": "¡Atención!",
+  "attentionMessage": "Esta acción no se puede deshacer. ¿Quieres continuar?",
+  "yes": "Sí",
+  "no": "No"
+}

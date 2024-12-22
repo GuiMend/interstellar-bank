@@ -53,6 +53,16 @@ function InfoTable<T>({
                         [column.key]: keyOrder === "asc" ? "desc" : "asc",
                       });
                     },
+                    onKeyDown: (event) => {
+                      if (event.key === "Enter") {
+                        setSearchParams({
+                          ...currentQueryParams(searchParams),
+                          [column.key]: keyOrder === "asc" ? "desc" : "asc",
+                        });
+                      }
+                    },
+                    role: "button",
+                    tabIndex: 0,
                     style: { cursor: "pointer" },
                   })}
                 >

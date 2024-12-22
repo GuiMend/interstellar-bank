@@ -38,6 +38,10 @@
     "selectCurrency": "Select currency",
     "selectStatus": "Select status",
     "totalTransactions": "Total transactions",
+    "blockInProgressTooltip": "There are no in progress transactions",
+    "alerts": {
+      "updateSuccess": "Transaction completed successfully"
+    },
     "table": {
       "id": "ID",
       "from": "From",
@@ -68,5 +72,15 @@
   "exchangeRate": "Exchange Rate",
   "opening": "Opening",
   "min": "Min",
-  "max": "Max"
+  "max": "Max",
+  "welcome": "Welcome to Coruscant Bank",
+  "welcomeMessage": "Please select a page from the navigation bar.",
+  "backToHome": "Back to home",
+  "notFound": "Page Not Found - 404",
+  "notFoundMessage": "The page you are looking for does not exist.",
+  "notFoundCTA": "Please go back to the home page.",
+  "attention": "Attention!",
+  "attentionMessage": "This action cannot be undone. Would you like to continue?",
+  "yes": "Yes",
+  "no": "No"
 }

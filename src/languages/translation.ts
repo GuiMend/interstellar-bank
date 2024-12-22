@@ -10,6 +10,16 @@ export interface Translation {
   opening: string;
   min: string;
   max: string;
+  welcome: string;
+  welcomeMessage: string;
+  backToHome: string;
+  notFound: string;
+  notFoundMessage: string;
+  notFoundCTA: string;
+  attention: string;
+  attentionMessage: string;
+  yes: string;
+  no: string;
 }
 
 export interface Status {
@@ -52,7 +62,13 @@ export interface Transactions {
   selectCurrency: string;
   selectStatus: string;
   totalTransactions: string;
+  blockInProgressTooltip: string;
+  alerts: Alerts;
   table: Table2;
+}
+
+export interface Alerts {
+  updateSuccess: string;
 }
 
 export interface Table2 {

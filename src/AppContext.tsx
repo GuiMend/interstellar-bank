@@ -4,7 +4,13 @@ import { createContext, useContext } from "react";
 
 type ColorScheme = "light" | "dark";
 
-type LanguageType = "en" | "pt";
+type LanguageType = "en" | "pt" | "es";
+
+type Alert = {
+  type: "success" | "error" | "warning" | "info";
+  title: string;
+  message?: string;
+};
 
 type AppContextType = {
   colorScheme: ColorScheme;
@@ -16,11 +22,15 @@ type AppContextType = {
   setExchangeRate?: (rate: number) => void;
   showProVersion?: boolean;
   setShowProVersion?: (show: boolean) => void;
+  showGlobalAlert: boolean;
+  globalAlertContent?: Alert;
+  updateGlobalAlert?: (content?: Alert) => void;
 };
 
 const LANGUAGE: Record<string, LanguageType> = {
   EN: "en",
   PT: "pt",
+  ES: "es",
 };
 
 const AppContext = createContext<AppContextType>({
@@ -28,9 +38,10 @@ const AppContext = createContext<AppContextType>({
   t: en,
   language: LANGUAGE.EN,
   showProVersion: true,
+  showGlobalAlert: false,
 });
 
 const useAppContext = () => useContext(AppContext);
 
 export { AppContext, LANGUAGE, useAppContext };
-export type { AppContextType, ColorScheme, LanguageType };
+export type { AppContextType, ColorScheme, LanguageType, Alert };

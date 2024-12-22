@@ -38,6 +38,10 @@
     "selectCurrency": "Selecionar moeda",
     "selectStatus": "Selecionar status",
     "totalTransactions": "Total de transações",
+    "blockInProgressTooltip": "Não há transações em andamento",
+    "alerts": {
+      "updateSuccess": "Transação concluída com sucesso"
+    },
     "table": {
       "id": "ID",
       "from": "De",
@@ -68,5 +72,15 @@
   "exchangeRate": "Taxa de câmbio",
   "opening": "Abertura",
   "min": "Mínimo",
-  "max": "Máximo"
+  "max": "Máximo",
+  "welcome": "Bem-vindo ao Banco de Coruscant",
+  "welcomeMessage": "Por favor, selecione uma página na barra de navegação.",
+  "backToHome": "Voltar para a página inicial",
+  "notFound": "Página Não Encontrada - 404",
+  "notFoundMessage": "A página que você está procurando não existe.",
+  "notFoundCTA": "Por favor, volte para a página inicial.",
+  "attention": "Atenção!",
+  "attentionMessage": "Esta ação não pode ser desfeita. Deseja continuar?",
+  "yes": "Sim",
+  "no": "Não"
 }

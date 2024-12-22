@@ -39,7 +39,7 @@ const MainLayout = () => {
     showProVersion,
     setShowProVersion,
   } = useAppContext();
-  const [opened, { toggle }] = useDisclosure();
+  const [opened, { toggle, close }] = useDisclosure();
 
   useEffect(() => {
     if (lang && Object.values(LANGUAGE).includes(lang)) {
@@ -55,7 +55,7 @@ const MainLayout = () => {
     >
       <AppShell.Header>
         <Group h="100%" justify="space-between" px="md">
-          <Group h="100%" px="md">
+          <Group h="100%">
             <Burger
               opened={opened}
               onClick={toggle}
@@ -88,6 +88,7 @@ const MainLayout = () => {
       <AppShell.Navbar withBorder={false}>
         <AppShell.Section grow my="md" px="xs">
           <NavLink
+            onClick={close}
             component={RouterNavLink}
             to="planets"
             label={t.planets.nav}
@@ -96,6 +97,7 @@ const MainLayout = () => {
             })}
           />
           <NavLink
+            onClick={close}
             component={RouterNavLink}
             to="users"
             label={t.users.nav}
@@ -142,8 +144,11 @@ const MainLayout = () => {
 const LogoWrapper = styled.img`
   height: 45px;
   width: 45px;
-  margin-right: 8px;
   border-radius: 50%;
+
+  @media (max-width: 370px) {
+    display: none;
+  }
 `;
 
 const LanguagesWrapper = styled.div`

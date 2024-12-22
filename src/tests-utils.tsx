@@ -19,6 +19,7 @@ const TestProvider: React.FC<PropsWithChildren> = ({ children }) => {
         t: en,
         exchangeRate: 1.5,
         showProVersion: true,
+        showGlobalAlert: false,
       }}
     >
       <QueryClientProvider client={queryClient}>

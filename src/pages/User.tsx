@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Button,
   Flex,
   NumberFormatter,
   Skeleton,
@@ -8,21 +7,15 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import { IconAlertTriangle, IconCheck, IconCopy } from "@tabler/icons-react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  getPlanetById,
-  getTransactionByUserId,
-  getUserById,
-  updateBatchTransaction,
-} from "api";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
+import { useQuery } from "@tanstack/react-query";
+import { getPlanetById, getTransactionByUserId, getUserById } from "api";
 import { LanguageType, useAppContext } from "AppContext";
-import ClearFilters from "components/ClearFilters";
 import Loading from "components/Loading";
-import SingleSelectFilter from "components/SingleSelectFilter";
+import PageDetailsFilterCards from "components/PageDetailsFilterCards";
+import PageDetailsHeader from "components/PageDetailsHeader";
 import StatusChip from "components/StatusChip";
 import InfoTable, { Order } from "components/Table";
-import TotalTransactions from "components/TotalTransactions";
 import UserDetails from "components/UserDetails";
 import { useMemo, useState } from "react";
 import { redirect, useParams, useSearchParams } from "react-router-dom";
@@ -33,7 +26,6 @@ import { formatDate } from "utils/dateFormat";
 const UserPage: React.FC = () => {
   const { t, exchangeRate } = useAppContext();
   const [lastCopiedId, setLastCopiedId] = useState<string>();
-  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const orderId = (searchParams.get("id") ?? "") as Order;
   const orderFrom = (searchParams.get("from") ?? "") as Order;
@@ -65,17 +57,6 @@ const UserPage: React.FC = () => {
     queryFn: () => getPlanetById(parseInt(user?.homeworld ?? "")),
     enabled: !!user?.id,
   });
-
-  const { isPending: updateIsPending, mutate: updateTransactions } =
-    useMutation({
-      mutationFn: (transactionToUpdate: Transaction[]) =>
-        updateBatchTransaction(transactionToUpdate),
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: ["transactions", "user", userId],
-        });
-      },
-    });
 
   const filteredTransactions = useMemo(() => {
     return transactions
@@ -167,87 +148,24 @@ const UserPage: React.FC = () => {
 
   return (
     <div>
-      <Flex justify="space-between" style={{ minHeight: 36 }}>
-        <Text component="h1" fw={200} size="xl">
-          {user?.name} (#{userId})
-        </Text>
-        <Flex gap={16}>
-          {(orderId ||
+      <PageDetailsHeader
+        title={`${user?.name} (#${userId})`}
+        showClearFilters={Boolean(
+          orderId ||
             orderAmount ||
             orderDate ||
             orderFrom ||
             orderStatus ||
             currencyFilter ||
-            statusFilter) && <ClearFilters />}
-          <Button
-            loading={updateIsPending}
-            variant="subtle"
-            leftSection={<IconAlertTriangle />}
-            color="red"
-            disabled={transactionsIsPending || planetIsPending}
-            onClick={() => {
-              if (!transactions?.length) return;
-
-              updateTransactions(
-                transactions.reduce((acc, curr) => {
-                  if (curr.status === "inProgress") {
-                    return [...acc, { ...curr, status: "blocked" }];
-                  }
-                  return acc;
-                }, [] as Transaction[])
-              );
-            }}
-          >
-            {t.transactions.blockInProgress}
-          </Button>
-        </Flex>
-      </Flex>
-      <Space h={10} />
+            statusFilter
+        )}
+        transactions={transactions ?? []}
+        invalidationQueryKey={["transactions", "user", userId]}
+      />
+      <Space h={16} />
       <UserDetails user={user} homeworld={homeworld} />
-      <Space h={30} />
-      <Flex
-        justify="space-between"
-        wrap="wrap"
-        gap={16}
-        direction={{ base: "column", sm: "row" }}
-      >
-        <Flex gap={16}>
-          <SingleSelectFilter
-            label={t.transactions.selectCurrency}
-            selectId="currency"
-            options={[
-              {
-                value: "ICS",
-                label: "ICS",
-              },
-              {
-                value: "GCS",
-                label: "GCS",
-              },
-            ]}
-          />
-          <SingleSelectFilter
-            label={t.transactions.selectStatus}
-            selectId="statusFilter"
-            options={[
-              {
-                value: "completed",
-                label: "Completed",
-              },
-              {
-                value: "inProgress",
-                label: "In Progress",
-              },
-              {
-                value: "blocked",
-                label: "Blocked",
-              },
-            ]}
-          />
-        </Flex>
-
-        <TotalTransactions {...totalTransactions} />
-      </Flex>
+      <Space h={16} />
+      <PageDetailsFilterCards {...totalTransactions} />
       <Space h={30} />
       {transactionsIsPending || planetIsPending ? (
         <Loading />

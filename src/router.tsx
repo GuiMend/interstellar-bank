@@ -5,6 +5,8 @@ import MainLayout from "layout/Main";
 import { LANGUAGE, LanguageType } from "AppContext";
 import UsersPage from "pages/Users";
 import UserPage from "pages/User";
+import NotFoundPage from "pages/NotFound";
+import HomePage from "pages/Home";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,10 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
+        path: "",
+        element: <HomePage />,
+      },
+      {
         path: "users",
         element: <UsersPage />,
       },
@@ -35,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "planets/:planetId",
         element: <PlanetPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },

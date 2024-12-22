@@ -25,7 +25,7 @@ const SingleSelectFilter = ({
 
   return (
     <Wrapper>
-      <Label htmlFor={selectId}>{label}</Label>
+      <Label htmlFor={selectId}>{label}:</Label>
       <SelectWrapper>
         <Icon>
           <IconChevronDown height={16} width={16} />
@@ -65,11 +65,12 @@ const Label = styled.label`
 
 const SelectWrapper = styled.div`
   position: relative;
-  background-color: var(--input-bg);
+  background-color: var(--mantine-color-default);
 `;
 
 const Icon = styled.div`
-  z-index: -1;
+  /* Click through icon (so that <select> handles click) */
+  pointer-events: none;
   position: absolute;
   right: 5px;
   top: 8px;
@@ -82,6 +83,13 @@ const Select = styled.select`
   border-radius: 4px;
   appearance: none;
   background: transparent;
+  color: var(--mantine-color-text);
+  border: 1px solid var(--app-shell-border-color);
+
+  &:focus {
+    border: 1px solid var(--mantine-primary-color-filled);
+    outline: none;
+  }
 `;
 
 export default SingleSelectFilter;

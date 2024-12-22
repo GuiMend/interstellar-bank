@@ -5,12 +5,17 @@ import { colorByCurrencyAmount } from "utils/currencyTypeColor";
 type TotalTransactionsProps = {
   GCS: number;
   ICS: number;
+  style?: React.CSSProperties;
 };
 
-const TotalTransactions = ({ GCS = 0, ICS = 0 }: TotalTransactionsProps) => {
+const TotalTransactions = ({
+  GCS = 0,
+  ICS = 0,
+  style,
+}: TotalTransactionsProps) => {
   const { t } = useAppContext();
   return (
-    <Card>
+    <Card style={style}>
       <Text fw={200}>{t.transactions.totalTransactions}</Text>
       <Flex gap={16}>
         <Text fw={400} c={colorByCurrencyAmount(GCS ?? 0, "GCS")}>

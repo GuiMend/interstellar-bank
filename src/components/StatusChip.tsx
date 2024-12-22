@@ -11,6 +11,7 @@ const StatusChip = ({ status }: { status: string }) => {
     size: "xs",
     variant: "light",
     checked: true,
+    tabIndex: -1,
   } as const;
 
   switch (status) {

@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Button,
   Card,
   Flex,
   NumberFormatter,
@@ -9,22 +8,20 @@ import {
   Table,
   Text,
 } from "@mantine/core";
-import { IconAlertTriangle, IconCheck, IconCopy } from "@tabler/icons-react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { IconCheck, IconCopy } from "@tabler/icons-react";
+import { useQuery } from "@tanstack/react-query";
 import {
   getPlanetById,
   getTransactionByMultipleUserId,
   getUsersByHomeworld,
-  updateBatchTransaction,
 } from "api";
 import { LanguageType, useAppContext } from "AppContext";
-import ClearFilters from "components/ClearFilters";
 import Loading from "components/Loading";
+import PageDetailsFilterCards from "components/PageDetailsFilterCards";
+import PageDetailsHeader from "components/PageDetailsHeader";
 import PlanetDetails from "components/PlanetDetails";
-import SingleSelectFilter from "components/SingleSelectFilter";
 import StatusChip from "components/StatusChip";
 import InfoTable, { Order } from "components/Table";
-import TotalTransactions from "components/TotalTransactions";
 import { useMemo, useState } from "react";
 import {
   redirect,
@@ -33,6 +30,7 @@ import {
   useSearchParams,
 } from "react-router-dom";
 import { Transaction } from "server";
+import styled from "styled-components";
 import { colorByCurrencyAmount } from "utils/currencyTypeColor";
 import { formatDate } from "utils/dateFormat";
 
@@ -40,7 +38,6 @@ const PlanetPage: React.FC = () => {
   const { t, exchangeRate } = useAppContext();
   const navigate = useNavigate();
   const [lastCopiedId, setLastCopiedId] = useState<string>();
-  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const orderId = (searchParams.get("id") ?? "") as Order;
   const orderFrom = (searchParams.get("from") ?? "") as Order;
@@ -72,15 +69,6 @@ const PlanetPage: React.FC = () => {
     // Fetch after planet has been fetched
     enabled: !!planet?.id,
   });
-
-  const { isPending: updateIsPending, mutate: updateTransactions } =
-    useMutation({
-      mutationFn: (transactionToUpdate: Transaction[]) =>
-        updateBatchTransaction(transactionToUpdate),
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["transactions", planetId] });
-      },
-    });
 
   const indexedUsersById = useMemo(() => {
     return users?.reduce((acc, user) => {
@@ -192,92 +180,32 @@ const PlanetPage: React.FC = () => {
 
   return (
     <div>
-      <Flex justify="space-between" style={{ minHeight: 36 }}>
-        <Text component="h1" fw={200} size="xl">
-          {planet?.name} (#{planetId})
-        </Text>
-        <Flex gap={16}>
-          {(orderId ||
+      <PageDetailsHeader
+        title={`${planet?.name} (#${planetId})`}
+        showClearFilters={Boolean(
+          orderId ||
             orderAmount ||
             orderDate ||
             orderFrom ||
             orderStatus ||
             currencyFilter ||
-            statusFilter) && <ClearFilters />}
-          <Button
-            loading={updateIsPending}
-            variant="subtle"
-            leftSection={<IconAlertTriangle />}
-            color="red"
-            disabled={transactionsIsPending || usersIsPending}
-            onClick={() => {
-              if (!transactions?.length) return;
-
-              updateTransactions(
-                transactions.reduce((acc, curr) => {
-                  if (curr.status === "inProgress") {
-                    return [...acc, { ...curr, status: "blocked" }];
-                  }
-                  return acc;
-                }, [] as Transaction[])
-              );
-            }}
-          >
-            {t.transactions.blockInProgress}
-          </Button>
-        </Flex>
-      </Flex>
-      <Space h={10} />
+            statusFilter
+        )}
+        transactions={transactions ?? []}
+        invalidationQueryKey={["transactions", planetId]}
+      />
+      <Space h={16} />
       <PlanetDetails planet={planet} />
       <Space h={30} />
-      <Flex
-        justify="space-between"
-        wrap="wrap"
-        gap={16}
-        direction={{ base: "column", sm: "row" }}
-      >
-        <Flex gap={16}>
-          <SingleSelectFilter
-            label={t.transactions.selectCurrency}
-            selectId="currency"
-            options={[
-              {
-                value: "ICS",
-                label: "ICS",
-              },
-              {
-                value: "GCS",
-                label: "GCS",
-              },
-            ]}
-          />
-          <SingleSelectFilter
-            label={t.transactions.selectStatus}
-            selectId="statusFilter"
-            options={[
-              {
-                value: "completed",
-                label: "Completed",
-              },
-              {
-                value: "inProgress",
-                label: "In Progress",
-              },
-              {
-                value: "blocked",
-                label: "Blocked",
-              },
-            ]}
-          />
-        </Flex>
-        <Flex gap={16} wrap="wrap" direction={{ base: "column", xs: "row" }}>
-          <Card>
+      <PageDetailsFilterCards
+        {...totalTransactions}
+        additionalCards={
+          <Card style={{ flexGrow: 1 }}>
             <Text fw={200}>{t.planets.totalResidents}</Text>
             <Text fw={400}>{users?.length ?? 0}</Text>
           </Card>
-          <TotalTransactions {...totalTransactions} />
-        </Flex>
-      </Flex>
+        }
+      />
       <Space h={30} />
       {transactionsIsPending || usersIsPending ? (
         <Loading />
@@ -329,11 +257,17 @@ const PlanetPage: React.FC = () => {
                     </ActionIcon>
                   </Flex>
                 </Table.Td>
-                <Table.Td
+                <ClickableTd
+                  tabIndex={0}
                   onClick={() => navigate(`/${lang}/users/${transaction.user}`)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter") {
+                      navigate(`/${lang}/users/${transaction.user}`);
+                    }
+                  }}
                 >
                   {transaction.from}
-                </Table.Td>
+                </ClickableTd>
                 <Table.Td>
                   <Text
                     c={colorByCurrencyAmount(
@@ -384,5 +318,13 @@ const PlanetPage: React.FC = () => {
     </div>
   );
 };
+
+const ClickableTd = styled(Table.Td)`
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--mantine-color-blue-light-hover);
+  }
+`;
 
 export default PlanetPage;
