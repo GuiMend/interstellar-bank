@@ -3,7 +3,7 @@
   <br><br>
   <h3>Where digital assets come to life</h3>
   <br><br>
-  <h1>Interstellar Banking System</h1>
+  <h1>Coruscant Banking System</h1>
 </div>
 
 ## Installation

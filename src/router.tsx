@@ -3,6 +3,8 @@ import PlanetsPage from "./pages/Planets";
 import PlanetPage from "./pages/Planet";
 import MainLayout from "layout/Main";
 import { LANGUAGE, LanguageType } from "AppContext";
+import UsersPage from "pages/Users";
+import UserPage from "pages/User";
 
 const router = createBrowserRouter([
   {
@@ -19,12 +21,18 @@ const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        index: true,
+        path: "users",
+        element: <UsersPage />,
+      },
+      {
+        path: "users/:userId",
+        element: <UserPage />,
+      },
+      {
         path: "planets",
         element: <PlanetsPage />,
       },
       {
-        index: true,
         path: "planets/:planetId",
         element: <PlanetPage />,
       },

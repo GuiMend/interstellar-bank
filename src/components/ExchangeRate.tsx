@@ -1,9 +1,10 @@
 import { LineChart } from "@mantine/charts";
-import { Card, Center, Loader, Paper, Text } from "@mantine/core";
+import { Card, Paper, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { getExchangeRate } from "api";
 import { useAppContext } from "AppContext";
 import { useEffect, useState } from "react";
+import Loading from "./Loading";
 
 const ExchangeRate: React.FC = () => {
   const {
@@ -32,8 +33,8 @@ const ExchangeRate: React.FC = () => {
 
   useEffect(() => {
     if (exchangeRate && !isFetching) {
-      setHistory((current) => [
-        ...current,
+      setHistory((prev) => [
+        ...prev.slice(Math.max(prev.length - 10, 0)),
         { rate: parseFloat(exchangeRate), time: new Date() },
       ]);
       setExchangeRate?.(parseFloat(exchangeRate));
@@ -44,16 +45,14 @@ const ExchangeRate: React.FC = () => {
     <Card>
       <Text fw={200}>{t.exchangeRate}</Text>
       {isPending && !latestExchangeRate ? (
-        <Center>
-          <Loader type="dots" />
-        </Center>
+        <Loading />
       ) : (
         <div>
           <Text fw={700}>1 GCS = {latestExchangeRate?.toFixed(3)} ICS</Text>
           {showProVersion && (
             <LineChart
               h={50}
-              data={history.slice(Math.max(history.length - 10, 0))}
+              data={history}
               series={[
                 {
                   name: "rate",
@@ -88,10 +87,10 @@ const ExchangeRate: React.FC = () => {
             />
           )}
           <Text size="sm">
-            {t.opening}: {history?.[0]?.rate}
+            {t.opening}: {history?.[0]?.rate.toFixed(3)}
           </Text>
           <Text size="sm">
-            {t.min}: {min}
+            {t.min}: {min.toFixed(3)}
           </Text>
           <Text size="sm">
             {t.max}: {max.toFixed(3)}

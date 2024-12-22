@@ -62,7 +62,7 @@ const MainLayout = () => {
               hiddenFrom="sm"
               size="sm"
             />
-            <LogoWrapper src={Logo} alt="Interstellar Bank Logo" />
+            <LogoWrapper src={Logo} alt="Coruscant Bank Logo" />
             <Text size="xl" fw={200}>
               {t.app}
             </Text>

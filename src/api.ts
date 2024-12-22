@@ -17,8 +17,8 @@ export const getUsers = async () => {
 };
 
 export const getUserById = async (id: number) => {
-  const { data } = await axios.get<User>(`/api/users/${id}`);
-  return data;
+  const { data } = await axios.get<{ user: User }>(`/api/users/${id}`);
+  return data.user;
 };
 
 export const getUsersByHomeworld = async (planetId: number) => {

@@ -1,23 +1,69 @@
 {
-  "app": "Interstellar Bank",
+  "app": "Coruscant Bank",
   "search": "Search",
   "clearFilters": "Clear filters",
+  "status": {
+    "completed": "Completed",
+    "inProgress": "In progress",
+    "blocked": "Blocked"
+  },
   "planets": {
     "title": "Planets",
     "nav": "Planets",
     "noResults": "No planets found",
     "resultAmount": "planet(s) found",
+    "totalResidents": "Total residents",
+    "selectClimate": "Select climate",
+    "selectTerrain": "Select terrain",
     "table": {
       "name": "Name",
       "residents": "Residents",
       "population": "Population",
       "climate": "Climate",
-      "terrain": "Terrain"
+      "terrain": "Terrain",
+      "gravity": "Gravity",
+      "diameter": "Diameter",
+      "rotationPeriod": "Rotation period",
+      "orbitalPeriod": "Orbital period",
+      "surfaceWater": "Surface water",
+      "films": "Films"
+    }
+  },
+  "transactions": {
+    "title": "Transactions",
+    "nav": "Planets",
+    "blockInProgress": "Block in progress",
+    "noResults": "No transaction found",
+    "resultAmount": "transaction(s) found",
+    "selectCurrency": "Select currency",
+    "selectStatus": "Select status",
+    "totalTransactions": "Total transactions",
+    "table": {
+      "id": "ID",
+      "from": "From",
+      "amount": "Amount",
+      "currency": "Currency",
+      "conversion": "Conversion",
+      "date": "Date",
+      "status": "Status"
     }
   },
   "users": {
     "title": "Users",
-    "nav": "Users"
+    "nav": "Users",
+    "noResults": "No users found",
+    "resultAmount": "user(s) found",
+    "table": {
+      "name": "Name",
+      "gender": "Gender",
+      "birthYear": "Birth year",
+      "homeworld": "Homeworld",
+      "height": "Height",
+      "mass": "Mass",
+      "hairColor": "Hair Color",
+      "skinColor": "Skin Color",
+      "eyeColor": "Eye Color"
+    }
   },
   "exchangeRate": "Exchange Rate",
   "opening": "Opening",

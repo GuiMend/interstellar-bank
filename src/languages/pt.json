@@ -1,26 +1,72 @@
 {
-  "app": "Interstellar Bank",
-  "search": "Search",
-  "clearFilters": "Clear filters",
+  "app": "Banco de Coruscant",
+  "search": "Pesquisar",
+  "clearFilters": "Limpar filtros",
+  "status": {
+    "completed": "Concluído",
+    "inProgress": "Em andamento",
+    "blocked": "Bloqueado"
+  },
   "planets": {
-    "title": "Planets",
-    "nav": "Planets",
-    "noResults": "No planets found",
-    "resultAmount": "planet(s) found",
+    "title": "Planetas",
+    "nav": "Planetas",
+    "noResults": "Nenhum planeta encontrado",
+    "resultAmount": "planeta(s) encontrado(s)",
+    "totalResidents": "Total de residentes",
+    "selectClimate": "Selecionar clima",
+    "selectTerrain": "Selecionar terreno",
     "table": {
-      "name": "Name",
-      "residents": "Residents",
-      "population": "Population",
-      "climate": "Climate",
-      "terrain": "Terrain"
+      "name": "Nome",
+      "residents": "Residentes",
+      "population": "População",
+      "climate": "Clima",
+      "terrain": "Terreno",
+      "gravity": "Gravidade",
+      "diameter": "Diâmetro",
+      "rotationPeriod": "Período de rotação",
+      "orbitalPeriod": "Período orbital",
+      "surfaceWater": "Água superficial",
+      "films": "Filmes"
+    }
+  },
+  "transactions": {
+    "title": "Transações",
+    "nav": "Planetas",
+    "blockInProgress": "Bloquear em andamento",
+    "noResults": "Nenhuma transação encontrada",
+    "resultAmount": "transação(ões) encontrada(s)",
+    "selectCurrency": "Selecionar moeda",
+    "selectStatus": "Selecionar status",
+    "totalTransactions": "Total de transações",
+    "table": {
+      "id": "ID",
+      "from": "De",
+      "amount": "Quantidade",
+      "currency": "Moeda",
+      "conversion": "Conversão",
+      "date": "Data",
+      "status": "Status"
     }
   },
   "users": {
-    "title": "Users",
-    "nav": "Users"
+    "title": "Usuários",
+    "nav": "Usuários",
+    "noResults": "Nenhum usuário encontrado",
+    "resultAmount": "usuário(s) encontrado(s)",
+    "table": {
+      "name": "Nome",
+      "gender": "Gênero",
+      "birthYear": "Ano de nascimento",
+      "homeworld": "Planeta natal",
+      "height": "Altura",
+      "mass": "Massa",
+      "hairColor": "Cor do cabelo",
+      "skinColor": "Cor da pele",
+      "eyeColor": "Cor dos olhos"
+    }
   },
-  "exchangeRate": "Exchange Rate",
-  "opening": "Opening",
-  "min": "Min",
-  "max": "Max"
+  "exchangeRate": "Taxa de câmbio",
+  "opening": "Abertura",
+  "min": "Mínimo",
+  "max": "Máximo"
 }

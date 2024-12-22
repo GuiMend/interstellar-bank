@@ -1,28 +1,24 @@
-import {
-  Button,
-  Center,
-  Flex,
-  Loader,
-  NumberFormatter,
-  Space,
-  Table,
-  Text,
-} from "@mantine/core";
-import { IconX } from "@tabler/icons-react";
+import { Flex, NumberFormatter, Space, Table, Text } from "@mantine/core";
 import { useQuery } from "@tanstack/react-query";
 import { getPlanets } from "api";
 import { useAppContext } from "AppContext";
+import ClearFilters from "components/ClearFilters";
+import Loading from "components/Loading";
 import Searchbar from "components/Searchbar";
+import SingleSelectFilter from "components/SingleSelectFilter";
+import InfoTable, { Order } from "components/Table";
 import { useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { currentQueryParams } from "utils/pathnames";
 
 const PlanetsPage: React.FC = () => {
   const { t } = useAppContext();
   const navigate = useNavigate();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const search = searchParams.get("q") ?? "";
-  const order = searchParams.get("order") ?? "";
+  const climate = searchParams.get("climate") ?? "";
+  const terrain = searchParams.get("terrain") ?? "";
+  const orderName = (searchParams.get("name") ?? "") as Order;
+  const orderResidents = (searchParams.get("residents") ?? "") as Order;
 
   const { isPending, data: planets } = useQuery({
     queryKey: ["planets"],
@@ -34,110 +30,129 @@ const PlanetsPage: React.FC = () => {
       ?.filter((planet) =>
         planet.name.toLowerCase().includes(search.toLowerCase())
       )
+      .filter((planet) => {
+        if (climate === "") return true;
+        return planet.climate === climate;
+      })
+      .filter((planet) => {
+        if (terrain === "") return true;
+        return planet.terrain.includes(terrain);
+      })
       .sort((a, b) => {
-        if (!order) return 0;
+        if (!orderResidents) return 0;
 
-        return order.includes("-")
+        return orderResidents === "asc"
+          ? b.residents.length - a.residents.length
+          : a.residents.length - b.residents.length;
+      })
+      .sort((a, b) => {
+        if (!orderName) return 0;
+
+        return orderName === "asc"
           ? b.name.localeCompare(a.name)
           : a.name.localeCompare(b.name);
       });
-  }, [order, planets, search]);
+  }, [climate, orderName, orderResidents, planets, search, terrain]);
 
   return (
     <div>
       <Flex justify="space-between">
-        <Text component="h1" fw={200} size="xl">
+        <Text component="h1" fw={200} size="xl" style={{ minHeight: 36 }}>
           {t.planets.title}
         </Text>
-        {(search || order) && (
-          <Button
-            leftSection={<IconX size={14} />}
-            variant="default"
-            onClick={() => setSearchParams()}
-          >
-            {t.clearFilters}
-          </Button>
+        {(search || orderName || orderResidents || terrain || climate) && (
+          <ClearFilters />
         )}
       </Flex>
       <Space h={10} />
       <Searchbar placeholder={t.planets.title.toLowerCase()} />
+      <Space h={10} />
+      <Flex gap={16}>
+        <SingleSelectFilter
+          label={t.planets.selectClimate}
+          selectId="climate"
+          options={[
+            {
+              value: "arid",
+              label: "Arid",
+            },
+            {
+              value: "temperate",
+              label: "Temperate",
+            },
+          ]}
+        />
+        <SingleSelectFilter
+          label={t.planets.selectTerrain}
+          selectId="terrain"
+          options={[
+            {
+              value: "grasslands",
+              label: "Grasslands",
+            },
+            {
+              value: "mountains",
+              label: "Mountains",
+            },
+            {
+              value: "jungle",
+              label: "Jungle",
+            },
+            {
+              value: "rainforests",
+              label: "Rainforests",
+            },
+          ]}
+        />
+      </Flex>
       <Space h={30} />
       {isPending ? (
-        <Loader />
+        <Loading />
       ) : (
-        <Table
-          striped
-          highlightOnHover
-          withRowBorders={false}
-          stickyHeader
-          stickyHeaderOffset={60}
-        >
-          {(filteredPlanets ?? [])?.length > 0 && (
-            <Table.Caption>
-              {filteredPlanets?.length} {t.planets.resultAmount}
-            </Table.Caption>
+        <InfoTable
+          list={filteredPlanets}
+          columns={[
+            { orderBy: true, key: "name", label: t.planets.table.name },
+            {
+              orderBy: true,
+              key: "residents",
+              label: t.planets.table.residents,
+            },
+            {
+              label: t.planets.table.population,
+              key: "population",
+            },
+            { label: t.planets.table.climate, key: "climate" },
+            { label: t.planets.table.terrain, key: "terrain" },
+          ]}
+          row={(planet) => (
+            <>
+              <Table.Td>{planet.name}</Table.Td>
+              <Table.Td>{planet.residents.length}</Table.Td>
+              <Table.Td>
+                {parseInt(planet.population) ? (
+                  <NumberFormatter
+                    value={planet.population}
+                    thousandSeparator
+                  />
+                ) : (
+                  "unknown"
+                )}
+              </Table.Td>
+              <Table.Td style={{ textTransform: "capitalize" }}>
+                {planet.climate}
+              </Table.Td>
+              <Table.Td style={{ textTransform: "capitalize" }}>
+                {planet.terrain}
+              </Table.Td>
+            </>
           )}
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th
-                onClick={() => {
-                  setSearchParams({
-                    ...currentQueryParams(searchParams),
-                    order: order === "name" ? "-name" : "name",
-                  });
-                }}
-              >
-                <Flex justify="space-between" style={{ cursor: "pointer" }}>
-                  {t.planets.table.name}
-                  <span>
-                    {
-                      {
-                        name: "▲",
-                        "-name": "▼",
-                        "": "",
-                      }[order]
-                    }
-                  </span>
-                </Flex>
-              </Table.Th>
-              <Table.Th>{t.planets.table.residents}</Table.Th>
-              <Table.Th>{t.planets.table.population}</Table.Th>
-              <Table.Th>{t.planets.table.climate}</Table.Th>
-              <Table.Th>{t.planets.table.terrain}</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            {filteredPlanets?.length === 0 && (
-              <Table.Tr>
-                <Table.Td colSpan={5}>
-                  <Center>
-                    <Text size="sm" fw={200}>
-                      {t.planets.noResults}
-                    </Text>
-                  </Center>
-                </Table.Td>
-              </Table.Tr>
-            )}
-            {filteredPlanets?.map((planet) => (
-              <Table.Tr key={planet.id} onClick={() => navigate(planet.id)}>
-                <Table.Td>{planet.name}</Table.Td>
-                <Table.Td>{planet.residents.length}</Table.Td>
-                <Table.Td>
-                  {parseInt(planet.population) ? (
-                    <NumberFormatter
-                      value={planet.population}
-                      thousandSeparator
-                    />
-                  ) : (
-                    "?"
-                  )}
-                </Table.Td>
-                <Table.Td>{planet.climate}</Table.Td>
-                <Table.Td>{planet.terrain}</Table.Td>
-              </Table.Tr>
-            ))}
-          </Table.Tbody>
-        </Table>
+          rowConfig={(planet) => ({
+            key: planet.id,
+            onClick: () => navigate(planet.id),
+          })}
+          translation={t.planets}
+        />
       )}
     </div>
   );
