@@ -6,10 +6,16 @@
   <h1>Coruscant Banking System</h1>
 </div>
 
+## Demo
+
+You can check a demo of Coruscant Bank running here: https://interstellar-bank.vercel.app/en
+
+_Obs: interstellar-bank was the previous name I picked for the project._
+
 ## Installation
 
 1. Install dependencies: `npm install`
-2. Run application: `npm start`
+2. Run application: `npm start` and go to http://localhost:3000/
 3. Run tests: `npm run test`
 
 ## Note
@@ -51,43 +57,50 @@ export type { ExchangeRate, Planet, User, Transaction };
 
 To ensure the success of your mission, adopt the following technical specifications:
 
-- **Technologies & languages:**
+#### - **Technologies & languages:**
 
-  - Use `React Query` to execute all the requests to the endpoints. ✅
-  - Build the solution using `Typescript` and `React`. ✅
-  - In order to allow us to review a similar set of challenges, do not update, change or edit the mock server.
-    > The mock server wasn't touched, but I added the type export to the file
+- Use `React Query` to execute all the requests to the endpoints. ✅
+- Build the solution using `Typescript` and `React`. ✅
+- In order to allow us to review a similar set of challenges, do not update, change or edit the mock server.
+  > The mock server wasn't touched, but I added the type export to the file
 
-- **User interface:**
+#### - **User interface:**
 
-  - Organize the UI to the best of your knowledge and judgment as if this was a real application. ✅
-    > Could have made some components and pages even more reusable, but I guess there is always space for improvement
-  - Ensure the UI is responsive, even in very small screens. ✅
-  - In order to allow us to review a similar set of challenges, only use libraries already present in the package.json.
-    > I've added 2 packages that weren't included in the initial setup:
-    >
-    > - `@tabler/icons-react`, to be able to add icons to the project.
-    > - `@mantine/charts`, to add an exchange chart
-    >   Please, feel free to disconsider these additional libs when scoring this challenge (I added them because they are a complement from the `@mantine` libs already installed in the project)
-  - In order to allow us to review HTML and CSS knowledge, the component to filter the transactions by its currency type should be coded from scratch, without using the UI component libraries. ✅
-    > The component can be found in the file: `src/components/SingleSelectFilter.tsx`
+- Organize the UI to the best of your knowledge and judgment as if this was a real application. ✅
+  > Could have made some components and pages even more reusable, but I guess there is always space for improvement
+- Ensure the UI is responsive, even in very small screens. ✅
+- In order to allow us to review a similar set of challenges, only use libraries already present in the package.json.
+  > I've added 2 packages that weren't included in the initial setup:
+  >
+  > - `@tabler/icons-react`, to be able to add icons to the project.
+  > - `@mantine/charts`, to add an exchange chart
+  >   Please, feel free to disconsider these additional libs when scoring this challenge (I added them because they are a complement from the `@mantine` libs already installed in the project)
+- In order to allow us to review HTML and CSS knowledge, the component to filter the transactions by its currency type should be coded from scratch, without using the UI component libraries. ✅
+  > The component can be found in the file: `src/components/SingleSelectFilter.tsx`
 
-- **Flexible requirements:**
-  You MUST choose 2 of the following requirements:
+#### - **Flexible requirements**
 
-  - Implement a solution capable of turning all transactions with a status of `inProgress` for a given planet to `blocked` using a planet ID. ✅
-    > Can perform action in `/planets/id` or `/users/id` pages
-  - Add additional controls to filter the planets by terrain and climate. ✅
-    > Added Climate, Terrain filters to `Planets` and `Status` to `planet/id` and `user/id`
-  - Create the UI from scratch without using any UI component libraries.
-    > I used the provided ui lib.
-  - Add multiple languages to the application. ✅
-    > Added support for multiple languages (already setup to handle English, Portuguese and Spanish)
-  - Add automated tests. ✅
-    > I did add tests, but only to one component. Relevant files `src/tests-utils.tsx` and `src/components/TotalTransactions.test.tsx`
+You MUST choose 2 of the following requirements:
 
-- **Testing and validation:**
-  - Provide screenshots or recording of the final implementation.
-  - Provide comprehensive guidelines for testing your data architecture.
-  - Include step-by-step instructions for starting the solution.
-  - Provide which flexible requirements you have chosen.
+- Implement a solution capable of turning all transactions with a status of `inProgress` for a given planet to `blocked` using a planet ID. ✅
+  > Can perform action in `/planets/id` or `/users/id` pages
+- Add additional controls to filter the planets by terrain and climate. ✅
+  > Added Climate, Terrain filters to `Planets` and `Status` to `planet/id` and `user/id`
+- Create the UI from scratch without using any UI component libraries.
+  > I used the provided ui lib.
+- Add multiple languages to the application. ✅
+  > Added support for multiple languages (already setup to handle English, Portuguese and Spanish)
+- Add automated tests. ✅
+
+  > I did add tests, but only to one component. Relevant files `src/tests-utils.tsx` and `src/components/TotalTransactions.test.tsx`
+
+#### - **Testing and validation:**
+
+- Provide screenshots or recording of the final implementation. ✅
+  > Can be found in `/screenshots` folder
+- Provide comprehensive guidelines for testing your data architecture. ✅
+  > See [Installation](#installation) section
+- Include step-by-step instructions for starting the solution. ✅
+  > See [Installation](#installation) section
+- Provide which flexible requirements you have chosen. ✅
+  > See [Flexible requirements](#flexible-requirements) section
