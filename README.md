@@ -8,7 +8,7 @@
 
 ## Demo
 
-You can check a demo of Coruscant Bank running here: https://interstellar-bank.vercel.app/en
+You can check a demo of Coruscant Bank running here: <a href="https://interstellar-bank.vercel.app/en" target="_blank">Coruscant Bank Demo</a>
 
 _Obs: interstellar-bank was the previous name I picked for the project._
 
