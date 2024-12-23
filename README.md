@@ -12,6 +12,10 @@ You can check a demo of Coruscant Bank running here: <a href="https://interstell
 
 _Obs: interstellar-bank was the previous name I picked for the project._
 
+Feature demo video: https://youtu.be/-yf9cJfqLJs
+
+Mobile responsiveness, theme changing (light/dark), internationalization demo: https://youtu.be/W603bedAXks
+
 ## Installation
 
 1. Install dependencies: `npm install`
